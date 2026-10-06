@@ -1,0 +1,48 @@
+---
+import Icon from "./Icon.astro";
+import { plans } from "../data/site";
+---
+
+<section id="membership" class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Membership</p>
+      <h2>Find your place in the studio</h2>
+      <p>
+        Month to month, cancel any time. Your first open studio night is on us.
+      </p>
+    </div>
+    <ul class="plans">
+      {
+        plans.map((plan) => (
+          <li class:list={["plan", { featured: plan.featured }]}>
+            {plan.featured && <p class="plan-flag">Most popular</p>}
+            <h3>{plan.name}</h3>
+            <p class="plan-price">
+              <span>{plan.price}</span>
+              {plan.period && <small>{plan.period}</small>}
+            </p>
+            <p class="plan-description">{plan.description}</p>
+            <ul class="plan-features">
+              {plan.features.map((feature) => (
+                <li>
+                  <Icon name="check" size={18} />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a
+              class:list={["btn", plan.featured ? "btn-accent" : "btn-outline"]}
+              href={plan.price === "Free" ? "#signup" : "#contact"}
+              data-enquiry={
+                plan.price === "Free" ? undefined : `${plan.name} membership`
+              }
+            >
+              {plan.cta}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

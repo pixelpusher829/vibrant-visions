@@ -1,0 +1,27 @@
+---
+import { faqs } from "../data/site";
+---
+
+<section id="faq" class="section">
+  <div class="container faq">
+    <div class="section-heading">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions, answered</h2>
+      <p>
+        Can't find what you're looking for? <a href="#contact"
+          >Send us a message</a
+        >.
+      </p>
+    </div>
+    <div class="faq-list">
+      {
+        faqs.map((faq) => (
+          <details>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

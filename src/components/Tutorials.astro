@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Icon from "./Icon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const tutorials = (await getCollection("tutorials")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section id="tutorials" class="section section-tinted">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Tutorials</p>
+      <h2>Learn something new at home</h2>
+      <p>Free step-by-step guides from our workshop leaders.</p>
+    </div>
+    <ul class="card-grid">
+      {
+        tutorials.map((t) => (
+          <li class="tutorial-card">
+            <Image
+              src={t.data.image}
+              alt={t.data.alt}
+              widths={[400, 800]}
+              sizes="(max-width: 48rem) 100vw, 33vw"
+            />
+            <div class="tutorial-body">
+              <p class="tutorial-meta">
+                <span class="badge">{t.data.level}</span>
+                <span>
+                  <Icon name="book" size={16} /> {t.data.duration}
+                </span>
+              </p>
+              <h3>
+                <a href={`${base}/tutorials/${t.id}/`}>{t.data.title}</a>
+              </h3>
+              <p>{t.data.description}</p>
+              <span class="text-link" aria-hidden="true">
+                Read tutorial <Icon name="arrowRight" size={16} />
+              </span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

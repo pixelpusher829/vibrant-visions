@@ -1,0 +1,112 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+
+const action = site.formEndpoint || `mailto:${site.email}`;
+const { street, city, region, postalCode } = site.address;
+const fullAddress = `${street}, ${city}, ${region} ${postalCode}`;
+---
+
+<section id="contact" class="section section-tinted">
+  <div class="container contact">
+    <div class="contact-info">
+      <p class="eyebrow">Contact</p>
+      <h2>Come say hello</h2>
+      <p>
+        Questions about membership, booking an event or hosting a private
+        workshop? Send us a message and we'll reply within two working days.
+      </p>
+      <ul class="contact-list">
+        <li>
+          <Icon name="phone" />
+          <a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}>{site.phone}</a>
+        </li>
+        <li>
+          <Icon name="mail" />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <Icon name="pin" />
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`}
+            target="_blank"
+            rel="noopener">{fullAddress}</a
+          >
+        </li>
+      </ul>
+      <h3>Studio hours</h3>
+      <dl class="hours">
+        {
+          site.hours.map((h) => (
+            <>
+              <dt>{h.days}</dt>
+              <dd>{h.time}</dd>
+            </>
+          ))
+        }
+      </dl>
+    </div>
+
+    <form
+      class="contact-form"
+      action={action}
+      method="post"
+      data-form
+      data-subject="Website enquiry"
+      data-success="Thanks for your message! We'll get back to you within two working days."
+    >
+      <input
+        type="text"
+        name="_gotcha"
+        class="visually-hidden"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+      <div class="field-row">
+        <div class="field">
+          <label for="contact-name">Name</label>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            autocomplete="name"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="contact-email">Email</label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label for="contact-subject">Subject</label>
+        <input
+          id="contact-subject"
+          name="subject"
+          type="text"
+          placeholder="e.g. Membership, event booking, private workshop"
+        />
+      </div>
+      <div class="field">
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" rows="6" required
+        ></textarea>
+      </div>
+      <button class="btn btn-primary btn-lg" type="submit">
+        Send message <Icon name="arrowRight" size={18} />
+      </button>
+      <p role="status" class="form-status"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import "../scripts/forms";
+</script>

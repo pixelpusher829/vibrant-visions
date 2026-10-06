@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { nav, site } from "../data/site";
+import logo from "../assets/images/logo.png";
+
+interface Props {
+  isHome: boolean;
+}
+
+const { isHome } = Astro.props;
+const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const link = (hash: string) => (isHome ? hash : `${home}${hash}`);
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Image src={logo} alt={site.name} height={48} />
+      <p>{site.tagline}</p>
+      <ul class="socials">
+        {
+          site.socials.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={s.label}
+              >
+                <Icon name={s.icon} size={22} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <nav aria-label="Footer">
+      <h2>Explore</h2>
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={link(item.href)}>{item.label}</a>
+            </li>
+          ))
+        }
+        <li><a href={link("#faq")}>FAQ</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>Visit</h2>
+      <address>
+        {site.address.street}<br />
+        {site.address.city}, {site.address.region}
+        {site.address.postalCode}
+      </address>
+      <p>
+        <a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}>{site.phone}</a><br
+        />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

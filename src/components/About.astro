@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { offerings, site } from "../data/site";
+import about from "../assets/images/about.jpg";
+---
+
+<section id="about" class="section">
+  <div class="container about">
+    <div class="about-media">
+      <Image
+        src={about}
+        alt="Artist standing in a stairwell painted with a colourful mural"
+        widths={[400, 600, 800]}
+        sizes="(max-width: 48rem) 100vw, 40vw"
+      />
+    </div>
+    <div class="about-content">
+      <p class="eyebrow">About us</p>
+      <h2>A creative home for artists of every background</h2>
+      <p>
+        {site.name} is a community of artists and art lovers dedicated to creativity,
+        connection and growth. Whether you paint every day or haven't picked up a
+        pencil since school, there's a seat at the table for you.
+      </p>
+      <p>
+        We believe art is better made together. Our studio is a supportive space
+        to experiment, learn from one another and push your practice further,
+        across every style and medium.
+      </p>
+      <ul class="offerings">
+        {
+          offerings.map((item) => (
+            <li>
+              <span class="offering-icon">
+                <Icon name={item.icon} size={22} />
+              </span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

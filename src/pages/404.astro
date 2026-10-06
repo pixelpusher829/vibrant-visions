@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const home = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<Layout title="Page not found">
+  <section class="section not-found">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>This canvas is blank</h1>
+      <p>The page you're looking for has moved or doesn't exist.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={home}>Back to home</a>
+        <a class="btn btn-outline" href={`${home}#contact`}>Contact us</a>
+      </div>
+    </div>
+  </section>
+</Layout>

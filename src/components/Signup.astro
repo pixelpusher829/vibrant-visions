@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+import { site } from "../data/site";
+import signupBanner from "../assets/images/signup-banner.jpg";
+
+const action = site.formEndpoint || `mailto:${site.email}`;
+---
+
+<section id="signup" class="signup">
+  <Image
+    src={signupBanner}
+    alt=""
+    class="signup-bg"
+    widths={[640, 1200]}
+    quality={70}
+    sizes="100vw"
+  />
+  <div class="container signup-content">
+    <h2>Unleash your creativity.</h2>
+    <p>
+      Get event announcements, new tutorials and member spotlights in your inbox
+      once a month. No spam, unsubscribe any time.
+    </p>
+    <form
+      class="signup-form"
+      action={action}
+      method="post"
+      data-form
+      data-subject="Newsletter sign-up"
+      data-success="You're on the list! Look out for our next newsletter."
+    >
+      <input type="hidden" name="subject" value="Newsletter sign-up" />
+      <input
+        type="text"
+        name="_gotcha"
+        class="visually-hidden"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+      <label class="visually-hidden" for="signup-email">Email address</label>
+      <input
+        id="signup-email"
+        type="email"
+        name="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      />
+      <button class="btn btn-accent" type="submit">Subscribe</button>
+      <p role="status" class="form-status"></p>
+    </form>
+  </div>
+</section>

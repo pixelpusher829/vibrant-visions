@@ -1,0 +1,31 @@
+---
+import { Picture } from "astro:assets";
+import { site } from "../data/site";
+import headerBanner from "../assets/images/header-banner.jpg";
+---
+
+<section class="hero" id="top">
+  <Picture
+    src={headerBanner}
+    alt=""
+    class="hero-bg"
+    formats={["avif", "webp"]}
+    widths={[640, 1024, 1440]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+    quality={70}
+  />
+  <div class="container hero-content">
+    <p class="eyebrow">Community art club</p>
+    <h1>{site.tagline}</h1>
+    <p class="hero-lead">
+      Open studio nights, hands-on workshops and exhibitions for artists of
+      every level. Come make something with us.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-accent btn-lg" href="#membership">Become a member</a>
+      <a class="btn btn-ghost btn-lg" href="#events">See upcoming events</a>
+    </div>
+  </div>
+</section>

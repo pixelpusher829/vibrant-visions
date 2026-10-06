@@ -1,214 +1,26 @@
 ---
-import "../styles/global.css";
-import logo from "../assets/images/logo.png";
-import about from "../assets/images/about.jpg";
-import {
-  gallery1,
-  gallery2,
-  gallery3,
-  gallery4,
-  gallery5,
-  gallery6,
-  gallery7,
-  gallery8,
-  gallery9,
-  gallery10,
-} from "../assets/index.js";
-import { event1, event2, event3 } from "../assets/index.js";
-import { tutorial1, tutorial2, tutorial3 } from "../assets/index.js";
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Gallery from "../components/Gallery.astro";
+import Events from "../components/Events.astro";
+import Tutorials from "../components/Tutorials.astro";
+import Membership from "../components/Membership.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Faq from "../components/Faq.astro";
+import Signup from "../components/Signup.astro";
+import Contact from "../components/Contact.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
-    />
-    <link rel="icon" type="image/svg+xml" href=`${Astro.site}/favicon.svg` />
-    <meta name="generator" content={Astro.generator} />
-    <title>Vibrant Visions</title>
-  </head>
-  <body>
-    <nav>
-      <a href="#header" class="logo"><img src={logo.src} /></a>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#tutorials">Tutorials</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a class="primary-btn" href="#membership">Sign up</a></li>
-      </ul>
-    </nav>
-    <header id="header">
-      <div class="banner">
-        <h1>Vibrant Visions</h1>
-        <p>Unleashing Creativity, Embracing Expression</p>
-      </div>
-    </header>
-    <section id="about">
-      <div>
-        <img src={about.src} alt="" />
-      </div>
-      <div class="content">
-        <h2>About Us</h2>
-        <p>
-          Welcome to Vibrant Visions, a dynamic community of artists and art
-          enthusiasts dedicated to fostering creativity, connection, and growth.
-        </p>
-        <p>
-          At Vibrant Visions, we believe in the transformative power of art. Our
-          club provides a supportive space for artists of all backgrounds to
-          express themselves, learn from one another, and push the boundaries of
-          their creativity.
-        </p>
-        <p>
-          Through regular meetings, workshops, and collaborative projects, we
-          aim to inspire artistic breakthroughs and create a vibrant community
-          that celebrates diverse styles and mediums.
-        </p>
-        <p>
-          Join Vibrant Visions and unleash your artistic potential. Connect with
-          fellow artists, gain valuable insights, and showcase your work in an
-          inclusive and supportive environment.
-        </p>
-        <p>
-          Let's explore the boundless possibilities of art together and bring
-          our vibrant visions to life.
-        </p>
-      </div>
-    </section>
-    <section id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery-grid">
-        <div class="gallery-img col-span">
-          <img src={gallery1.src} alt="" />
-        </div>
-        <div class="gallery-img"><img src={gallery2.src} alt="" /></div>
-        <div class="gallery-img row-span">
-          <img src={gallery3.src} alt="" />
-        </div>
-        <div class="gallery-img"><img src={gallery4.src} alt="" /></div>
-        <div class="gallery-img col-span">
-          <img src={gallery5.src} alt="" />
-        </div>
-        <div class="gallery-img col-span">
-          <img src={gallery6.src} alt="" />
-        </div>
-        <div class="gallery-img"><img src={gallery7.src} alt="" /></div>
-        <div class="gallery-img row-span">
-          <img src={gallery8.src} alt="" />
-        </div>
-        <div class="gallery-img"><img src={gallery9.src} alt="" /></div>
-        <div class="gallery-img col-span">
-          <img src={gallery10.src} alt="" />
-        </div>
-      </div>
-    </section>
-    <section id="events">
-      <h2>Events</h2>
-      <div class="events-grid">
-        <div class="events-post">
-          <div>
-            <img src={event1.src} alt="" />
-          </div>
-          <div class="content">
-            <p class="date">July 15, 2023</p>
-            <h3>Artistic Expression Workshop</h3>
-            <p class="description">
-              Discover new ways to express your artistic vision in this
-              interactive workshop.
-            </p>
-            <a href="#" class="primary-btn">Book Now</a>
-          </div>
-        </div>
-        <div class="events-post">
-          <div>
-            <img src={event2.src} alt="" />
-          </div>
-          <div class="content">
-            <p class="date">September 5-10, 2023</p>
-            <h3>Gallery Exhibition:<br /> Colors of the World</h3>
-            <p class="description">
-              Immerse yourself in a vibrant display of diverse artistic
-              interpretations.
-            </p>
-            <a href="#" class="primary-btn">Book Now</a>
-          </div>
-        </div>
-        <div class="events-post">
-          <div>
-            <img src={event3.src} alt="" />
-          </div>
-          <div class="content">
-            <p class="date">October 20, 2023</p>
-            <h3>Life Drawing Session with Professional Models</h3>
-            <p class="description">
-              Enhance your figure drawing skills in this inspiring life drawing
-              session.
-            </p>
-            <a href="#" class="primary-btn">Book Now</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="tutorials">
-      <h2>Tutorials</h2>
-      <div class="tutorials-grid">
-        <div class="tutorials-post">
-          <img src={tutorial1.src} alt="" />
-          <h3>Introduction to Acrylic Painting</h3>
-        </div>
-        <div class="tutorials-post">
-          <img src={tutorial2.src} alt="" />
-          <h3>
-            Mastering Digital Art: <br />
-            From Sketch to Finished Piece
-          </h3>
-        </div>
-        <div class="tutorials-post">
-          <img src={tutorial3.src} alt="" />
-          <h3>
-            Exploring Mixed Media:<br />
-            Collage Techniques
-          </h3>
-        </div>
-      </div>
-    </section>
-    <div id="membership">
-      <div class="membership-content">
-        <h2>Unleash Your Creativity.</h2>
-        <p>Join Vibrant Visions Today!</p>
-        <div class="form-container">
-          <form action="">
-            <input type="email" name="email" placeholder="Your Email" /><button
-              type="submit">Sign Up</button
-            >
-          </form>
-        </div>
-      </div>
-    </div>
-    <footer id="contact">
-      <div class="container contact-block">
-        <div>
-          <i class="fi fi-rr-phone-flip"></i>+1 (514) 235-9794 <br />
-          <i class="fi fi-rr-envelope"></i>info@librantvisions.com <br />
-          <i class="fi fi-rr-marker"></i>123 Main Street, City, State, ZIP
-          <br />
-        </div>
-        <img src={logo.src} alt="" />
-      </div>
-      <div class="copyright">
-        <div class="container">Vibrant Visions | Copyright 2023</div>
-      </div>
-    </footer>
-  </body>
-</html>
+<Layout isHome>
+  <Hero />
+  <About />
+  <Gallery />
+  <Events />
+  <Tutorials />
+  <Membership />
+  <Testimonials />
+  <Faq />
+  <Signup />
+  <Contact />
+</Layout>

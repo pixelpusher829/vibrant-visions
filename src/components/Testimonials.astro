@@ -1,0 +1,29 @@
+---
+import { testimonials } from "../data/site";
+---
+
+<section class="section section-dark" aria-labelledby="testimonials-title">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Member stories</p>
+      <h2 id="testimonials-title">Why people stay</h2>
+    </div>
+    <ul class="testimonials">
+      {
+        testimonials.map((t) => (
+          <li>
+            <figure class="testimonial">
+              <blockquote>
+                <p>{t.quote}</p>
+              </blockquote>
+              <figcaption>
+                <strong>{t.name}</strong>
+                <span>{t.role}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

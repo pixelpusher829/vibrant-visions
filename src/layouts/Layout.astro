@@ -1,0 +1,107 @@
+---
+import "../styles/global.css";
+import { getImage } from "astro:assets";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+import headerBanner from "../assets/images/header-banner.jpg";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** On the home page, nav links jump to sections instead of linking back home. */
+  isHome?: boolean;
+  ogImage?: ImageMetadata;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description = site.description,
+  isHome = false,
+  ogImage = headerBanner,
+  type = "website",
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const pageTitle = title
+  ? `${title} | ${site.name}`
+  : `${site.name} | Community Art Club`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = await getImage({
+  src: ogImage,
+  width: 1200,
+  height: 630,
+  format: "jpg",
+});
+const ogUrl = new URL(og.src, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  description: site.description,
+  url: new URL(`${base}/`, Astro.site).href,
+  email: site.email,
+  telephone: site.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    postalCode: site.address.postalCode,
+    addressCountry: site.address.country,
+  },
+  sameAs: site.socials.map((s) => s.href),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0b2e51" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    {
+      isHome && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd)}
+        />
+      )
+    }
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav isHome={isHome} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer isHome={isHome} />
+  </body>
+</html>

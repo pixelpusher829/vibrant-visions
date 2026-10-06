@@ -1,0 +1,103 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { events } from "../data/site";
+
+const parse = (iso: string) => new Date(`${iso}T00:00:00`);
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const upcoming = events
+  .filter((e) => parse(e.end ?? e.start) >= today)
+  .sort((a, b) => a.start.localeCompare(b.start));
+
+const fmt = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+const formatDate = (e: (typeof events)[number]) =>
+  e.end
+    ? fmt.formatRange(parse(e.start), parse(e.end))
+    : fmt.format(parse(e.start));
+---
+
+<section id="events" class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">Events</p>
+      <h2>Upcoming events</h2>
+      <p>
+        Workshops, exhibitions and drawing sessions. Members get free or
+        discounted entry.
+      </p>
+    </div>
+    {
+      upcoming.length > 0 ? (
+        <ol class="events-list">
+          {upcoming.map((event) => (
+            <li class="event-card" data-event-end={event.end ?? event.start}>
+              <div class="event-media">
+                <Image
+                  src={event.image}
+                  alt={event.alt}
+                  widths={[480, 800, 1200]}
+                  sizes="(max-width: 48rem) 100vw, 50vw"
+                />
+              </div>
+              <div class="event-content">
+                <p class="event-date">
+                  <time datetime={event.start}>{formatDate(event)}</time>
+                </p>
+                <h3>{event.title}</h3>
+                <p>{event.description}</p>
+                <ul class="event-meta">
+                  <li>
+                    <Icon name="clock" size={18} />
+                    {event.time}
+                  </li>
+                  <li>
+                    <Icon name="pin" size={18} />
+                    {event.location}
+                  </li>
+                  <li>
+                    <Icon name="ticket" size={18} />
+                    {event.price}
+                  </li>
+                </ul>
+                <a
+                  class="btn btn-primary"
+                  href="#contact"
+                  data-enquiry={event.title}
+                >
+                  Reserve a spot
+                  <Icon name="arrowRight" size={18} />
+                </a>
+              </div>
+            </li>
+          ))}
+        </ol>
+      ) : null
+    }
+    <p class="events-empty" hidden={upcoming.length > 0}>
+      New events are being scheduled. <a href="#signup">Join our newsletter</a> to
+      hear about them first.
+    </p>
+  </div>
+</section>
+
+<script>
+  // The site is static, so also hide events that have ended since the last build.
+  const today = new Date().toLocaleDateString("en-CA"); // local YYYY-MM-DD
+  const cards = document.querySelectorAll<HTMLElement>("[data-event-end]");
+  let visible = cards.length;
+  cards.forEach((card) => {
+    if (card.dataset.eventEnd! < today) {
+      card.hidden = true;
+      visible--;
+    }
+  });
+  if (visible === 0) {
+    document.querySelector<HTMLElement>(".events-empty")!.hidden = false;
+  }
+</script>
